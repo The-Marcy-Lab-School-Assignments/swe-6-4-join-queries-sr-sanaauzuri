@@ -3,7 +3,7 @@
 Answer each question below. Write in complete sentences (3–5 per answer).
 
 ---
-( commit)
+
 ## Question 1
 
 What is the difference between `INNER JOIN` and `LEFT JOIN`? Give a concrete example of when you would use each.
@@ -33,7 +33,7 @@ What is the `pg` library and why can't you write SQL directly in a `.js` file wi
 
 **Your answer:**
 
----
+
 
 ## Question 4
 
@@ -46,4 +46,9 @@ pool.query(`SELECT * FROM users WHERE username = '${username}'`);
 
 **Your answer:**
 
----
+A **parameterized query** uses placeholders like `$NUM` instead of directly inserting user input into a SQL string. This solves **SQL injection**, a common and destructive web vulnerability.  **SQL injection** is when a malicious user can pass in something like `DROP TABLE - - `as a value, and without a parameterized query, this is executed and can delete a table from your database. Using placeholders keeps the SQL string and the values separate, so Postgres treats the input as a value to be compared against your table rather than as a command to run. This means even if a malicious user tries to pass in a destructive query, it won't execute.
+
+```js
+// Safe — parameterized query
+pool.query(`SELECT * FROM users WHERE username = $1`,[username]);
+```
