@@ -10,7 +10,7 @@ What is the difference between `INNER JOIN` and `LEFT JOIN`? Give a concrete exa
 
 **Your answer:**
 
----
+`INNER JOIN` returns rows from two tables where the join condition is true, rows without a match are excluded. This is useful when you only want to see data that has a match in both tables, such as finding students who are enrolled in math class. `LEFT JOIN` returns all rows from the left table regardless of if they have a match in the right table, rows with no match return `NULL`. This is useful when you want to find the students that are and aren’t enrolled in math class.
 
 ## Question 2
 
