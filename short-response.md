@@ -25,7 +25,8 @@ GROUP BY users.user_id;
 
 **Your answer:**
 
----
+This will return a table with a ***username*** column and a ***total_bookmarks*** column. Each row will show the number of bookmarks each user has, including users that have no bookmarks.
+Users with zero bookmarks still appear because we used` LEFT JOIN`. `LEFT JOIN` includes all users regardless of if they have bookmarks or not because `LEFT JOIN` return rows with no match as NULL, instead of excluding the row from the final result like `INNER JOIN`.
 
 ## Question 3
 
