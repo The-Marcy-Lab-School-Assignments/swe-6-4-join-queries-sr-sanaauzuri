@@ -10,7 +10,7 @@ What is the difference between `INNER JOIN` and `LEFT JOIN`? Give a concrete exa
 
 **Your answer:**
 
----
+`INNER JOIN` returns rows from two tables where the join condition is true, rows without a match are excluded. This is useful when you only want to see data that has a match in both tables, such as finding students who are enrolled in math class. `LEFT JOIN` returns all rows from the left table regardless of if they have a match in the right table, rows with no match return `NULL`. This is useful when you want to find the students that are and aren’t enrolled in math class.
 
 ## Question 2
 
@@ -25,15 +25,16 @@ GROUP BY users.user_id;
 
 **Your answer:**
 
----
+This will return a table with a ***username*** column and a ***total_bookmarks*** column. Each row will show the number of bookmarks each user has, including users that have no bookmarks.
+Users with zero bookmarks still appear because we used` LEFT JOIN`. `LEFT JOIN` includes all users regardless of if they have bookmarks or not because `LEFT JOIN` return rows with no match as NULL, instead of excluding the row from the final result like `INNER JOIN`.
 
 ## Question 3
 
 What is the `pg` library and why can't you write SQL directly in a `.js` file without it? And what is a connection pool?
 
 **Your answer:**
+The `pg` library is the translator between the **Node application** and **Postgres**, it allows JavaScript code to communicate with a Postgres database. You cannot write SQL directly in a `.js` without pg because Javascript cannot read/execute SQL.  A connection pool is a set of open and ready connections for incoming queries, it’s useful because opening and closing a new connection for each query will significantly slow an application down.
 
----
 
 ## Question 4
 
@@ -46,4 +47,9 @@ pool.query(`SELECT * FROM users WHERE username = '${username}'`);
 
 **Your answer:**
 
----
+A **parameterized query** uses placeholders like `$NUM` instead of directly inserting user input into a SQL string. This solves **SQL injection**, a common and destructive web vulnerability.  **SQL injection** is when a malicious user can pass in something like `DROP TABLE - - `as a value, and without a parameterized query, this is executed and can delete a table from your database. Using placeholders keeps the SQL string and the values separate, so Postgres treats the input as a value to be compared against your table rather than as a command to run. This means even if a malicious user tries to pass in a destructive query, it won't execute.
+
+```js
+// Safe — parameterized query
+pool.query(`SELECT * FROM users WHERE username = $1`,[username]);
+```
