@@ -33,7 +33,7 @@ Users with zero bookmarks still appear because we used` LEFT JOIN`. `LEFT JOIN` 
 What is the `pg` library and why can't you write SQL directly in a `.js` file without it? And what is a connection pool?
 
 **Your answer:**
-
+The `pg` library is the translator between the **Node application** and **Postgres**, it allows JavaScript code to communicate with a Postgres database. You cannot write SQL directly in a `.js` without pg because Javascript cannot read/execute SQL.  A connection pool is a set of open and ready connections for incoming queries, it’s useful because opening and closing a new connection for each query will significantly slow an application down.
 
 
 ## Question 4
